@@ -5,10 +5,10 @@ import { handleApiError } from "@/utils/error.utils";
 
 export async function POST(req: NextRequest) {
   try {
-    const { action, email, password } = await req.json();
+    const { action, username, email, password } = await req.json();
 
     if (action === "signup") {
-      const result = SignupDto.safeParse({ email, password });
+      const result = SignupDto.safeParse({ username, email, password });
       if (!result.success) {
         return NextResponse.json(
           { error: "Validation failed", details: result.error.errors },

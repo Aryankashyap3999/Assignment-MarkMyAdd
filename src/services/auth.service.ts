@@ -9,10 +9,16 @@ import { SignupDtoType, LoginDtoType } from "@/dto/auth.dto";
 
 export const authService = {
   signup: async (data: SignupDtoType) => {
-    // Check if user already exists
-    const existingUser = await userRepository.findByEmail(data.email);
-    if (existingUser) {
+    // Check if user already exists by email
+    const existingEmail = await userRepository.findByEmail(data.email);
+    if (existingEmail) {
       throw new ApiError(409, "User with this email already exists");
+    }
+
+    // Check if username already exists
+    const existingUsername = await userRepository.findByUsername(data.username);
+    if (existingUsername) {
+      throw new ApiError(409, "Username already taken");
     }
 
     // Hash password
@@ -20,6 +26,7 @@ export const authService = {
 
     // Create user
     const user = await userRepository.create({
+      username: data.username,
       email: data.email,
       password: hashedPassword,
     });
@@ -35,6 +42,7 @@ export const authService = {
       token,
       user: {
         id: user.id,
+        username: user.username,
         email: user.email,
       },
     };

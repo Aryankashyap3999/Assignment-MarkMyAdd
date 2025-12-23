@@ -11,6 +11,7 @@ export default function AuthPage() {
   const router = useRouter();
   const setAuth = useAuth((state) => state.setAuth);
   const [isLogin, setIsLogin] = useState(true);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,6 +28,7 @@ export default function AuthPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: isLogin ? "login" : "signup",
+          ...(isLogin ? {} : { username }),
           email,
           password,
         }),
@@ -64,6 +66,18 @@ export default function AuthPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {!isLogin && (
+              <div>
+                <label className="block text-sm font-medium mb-2">Username</label>
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="johndoe"
+                  required={!isLogin}
+                />
+              </div>
+            )}
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <Input

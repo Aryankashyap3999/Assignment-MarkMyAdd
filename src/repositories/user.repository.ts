@@ -27,6 +27,27 @@ export const userRepository = {
     });
   },
 
+  findByUsername: async (username: string) => {
+    return prisma.user.findUnique({
+      where: { username },
+      include: {
+        roles: {
+          include: {
+            role: {
+              include: {
+                permissions: {
+                  include: {
+                    permission: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  },
+
   findById: async (id: string) => {
     return prisma.user.findUnique({
       where: { id },
