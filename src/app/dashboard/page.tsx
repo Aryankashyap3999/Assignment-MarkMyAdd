@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { PlusIcon, Settings, Lock, Zap } from "lucide-react";
 
 interface Role {
@@ -81,7 +80,7 @@ export default function DashboardPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Roles Card */}
-        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-300">
+        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-linear-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-300">
           <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-600/20 blur-2xl group-hover:bg-blue-600/30 transition-all duration-300" />
           <div className="relative space-y-2">
             <Settings className="w-8 h-8 text-blue-400 mb-4" />
@@ -91,7 +90,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Permissions Card */}
-        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-emerald-900/20 transition-all duration-300">
+        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-linear-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-emerald-900/20 transition-all duration-300">
           <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-emerald-600/20 blur-2xl group-hover:bg-emerald-600/30 transition-all duration-300" />
           <div className="relative space-y-2">
             <Lock className="w-8 h-8 text-emerald-400 mb-4" />
@@ -101,7 +100,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Assignments Card */}
-        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-300">
+        <div className="group relative overflow-hidden rounded-lg border border-slate-800 bg-linear-to-br from-slate-900 via-slate-900/80 to-slate-950 p-6 shadow-xl hover:shadow-2xl hover:shadow-purple-900/20 transition-all duration-300">
           <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-purple-600/20 blur-2xl group-hover:bg-purple-600/30 transition-all duration-300" />
           <div className="relative space-y-2">
             <Zap className="w-8 h-8 text-purple-400 mb-4" />
@@ -126,7 +125,7 @@ export default function DashboardPage() {
             </div>
             <Button
               onClick={() => router.push("/dashboard/roles")}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex-shrink-0"
+              className="bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 shrink-0"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Create Role
@@ -148,7 +147,7 @@ export default function DashboardPage() {
                   onClick={() => router.push(`/dashboard/roles/${role.id}`)}
                   className="group relative overflow-hidden rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-900/20 p-4 cursor-pointer transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/0 to-blue-600/0 group-hover:from-blue-600/10 group-hover:via-blue-600/5 group-hover:to-blue-600/0 transition-all duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-r from-blue-600/0 via-blue-600/0 to-blue-600/0 group-hover:from-blue-600/10 group-hover:via-blue-600/5 group-hover:to-blue-600/0 transition-all duration-300" />
                   <div className="relative flex items-center justify-between">
                     <div>
                       <p className="font-semibold text-slate-50 group-hover:text-blue-200 transition-colors">
@@ -203,7 +202,7 @@ export default function DashboardPage() {
             </div>
             <Button
               onClick={() => router.push("/dashboard/permissions")}
-              className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex-shrink-0"
+              className="bg-linear-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 shrink-0"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Create Permission
@@ -225,7 +224,7 @@ export default function DashboardPage() {
                   onClick={() => router.push(`/dashboard/permissions/${permission.id}`)}
                   className="group relative overflow-hidden rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-900/20 p-4 cursor-pointer transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/0 via-emerald-600/0 to-emerald-600/0 group-hover:from-emerald-600/10 group-hover:via-emerald-600/5 group-hover:to-emerald-600/0 transition-all duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-r from-emerald-600/0 via-emerald-600/0 to-emerald-600/0 group-hover:from-emerald-600/10 group-hover:via-emerald-600/5 group-hover:to-emerald-600/0 transition-all duration-300" />
                   <div className="relative">
                     <p className="font-semibold text-slate-50 group-hover:text-emerald-200 transition-colors">
                       {permission.name}
@@ -268,7 +267,7 @@ export default function DashboardPage() {
       </div>
 
       {/* AI Commands Section */}
-      <div className="relative overflow-hidden rounded-lg border border-blue-900/50 bg-gradient-to-br from-blue-950/50 via-slate-950/60 to-slate-950 p-8 shadow-2xl shadow-blue-900/20">
+      <div className="relative overflow-hidden rounded-lg border border-blue-900/50 bg-linear-to-br from-blue-950/50 via-slate-950/60 to-slate-950 p-8 shadow-2xl shadow-blue-900/20">
         <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-blue-600/20 blur-3xl" />
         <div className="relative space-y-4">
           <div className="flex items-center gap-3">
@@ -294,7 +293,7 @@ export default function DashboardPage() {
           </ul>
           <Button
             onClick={() => router.push("/dashboard/ai-command")}
-            className="mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+            className="mt-6 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Zap className="w-4 h-4 mr-2" />
             Try AI Commands

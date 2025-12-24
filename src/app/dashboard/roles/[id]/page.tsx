@@ -13,8 +13,8 @@ interface Role {
   name: string;
   createdAt: string;
   updatedAt: string;
-  permissions: Permission[];
-  users: User[];
+  permissions: Permission[] | Array<{ permission: Permission }>;
+  users: User[] | Array<{ user: User }>;
 }
 
 interface Permission {
@@ -28,6 +28,18 @@ interface User {
   username: string;
   email: string;
 }
+
+type PermissionOrNested = Permission | { permission: Permission };
+type UserOrNested = User | { user: User };
+
+// Helper functions to extract values from potentially nested structures
+const extractPermission = (item: PermissionOrNested): Permission => {
+  return 'permission' in item ? item.permission : item;
+};
+
+const extractUser = (item: UserOrNested): User => {
+  return 'user' in item ? item.user : item;
+};
 
 export default function RoleDetailPage() {
   const router = useRouter();
@@ -51,8 +63,18 @@ export default function RoleDetailPage() {
       });
       if (!response.ok) throw new Error("Failed to fetch role");
       const data = await response.json();
-      setRole(data.data);
-      setEditName(data.data.name);
+      
+      // Flatten nested structures if needed
+      const roleData = data.data || data;
+      const permissions: Permission[] = (roleData.permissions || []).map(extractPermission);
+      const users: User[] = (roleData.users || []).map(extractUser);
+      
+      setRole({
+        ...roleData,
+        permissions,
+        users,
+      });
+      setEditName(roleData.name);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error loading role");
     } finally {
@@ -234,7 +256,7 @@ export default function RoleDetailPage() {
 
         {role.permissions && role.permissions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {role.permissions.map((permission) => (
+            {(role.permissions as Permission[]).map((permission) => (
               <Card
                 key={permission.id}
                 className="border-slate-800 bg-slate-900/60 hover:bg-slate-900 hover:border-blue-500/50 transition-all"
@@ -282,7 +304,7 @@ export default function RoleDetailPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {role.users.map((user) => (
+            {(role.users as User[]).map((user) => (
               <Card
                 key={user.id}
                 className="border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-colors"

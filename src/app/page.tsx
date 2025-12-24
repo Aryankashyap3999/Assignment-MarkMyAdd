@@ -6,19 +6,21 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const router = useRouter();
-  const { token, checkAuth } = useAuth();
+  const { token, isHydrated, hydrate } = useAuth();
 
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+    hydrate();
+  }, [hydrate]);
 
   useEffect(() => {
+    if (!isHydrated) return;
+    
     if (token) {
       router.push("/dashboard");
     } else {
       router.push("/auth");
     }
-  }, [token, router]);
+  }, [token, isHydrated, router]);
 
   return null;
 }

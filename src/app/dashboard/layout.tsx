@@ -11,16 +11,20 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { token, logout, checkAuth } = useAuth();
+  const { token, logout, hydrate, isHydrated } = useAuth();
 
   useEffect(() => {
-    checkAuth();
+    hydrate();
+  }, [hydrate]);
+
+  useEffect(() => {
+    if (!isHydrated) return;
     if (!token) {
       router.push("/auth");
     }
-  }, [token, router, checkAuth]);
+  }, [token, isHydrated, router]);
 
-  if (!token) {
+  if (!isHydrated || !token) {
     return null;
   }
 

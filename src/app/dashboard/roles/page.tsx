@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { TrashIcon, LinkIcon } from "lucide-react";
+import { TrashIcon, LinkIcon, ArrowLeftIcon } from "lucide-react";
 
 interface Permission {
   id: string;
@@ -94,8 +94,19 @@ export default function RolesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-slate-900 mb-4">Manage Roles</h2>
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Manage Roles</h2>
+          <p className="text-slate-600 text-sm">Create and manage roles for your system</p>
+        </div>
+        <Button
+          onClick={() => router.push("/dashboard")}
+          variant="outline"
+          className="text-slate-600 border-slate-300 hover:bg-slate-100"
+        >
+          <ArrowLeftIcon className="w-4 h-4 mr-2" />
+          Back to Dashboard
+        </Button>
       </div>
 
       <Card>
