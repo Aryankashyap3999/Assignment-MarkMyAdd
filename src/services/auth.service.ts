@@ -9,75 +9,91 @@ import { SignupDtoType, LoginDtoType } from "@/dto/auth.dto";
 
 export const authService = {
   signup: async (data: SignupDtoType) => {
-    // Check if user already exists by email
-    const existingEmail = await userRepository.findByEmail(data.email);
-    if (existingEmail) {
-      throw new ApiError(409, "User with this email already exists");
-    }
+    try {
+      // Check if user already exists by email
+      const existingEmail = await userRepository.findByEmail(data.email);
+      if (existingEmail) {
+        throw new ApiError(409, "User with this email already exists");
+      }
 
-    // Check if username already exists
-    const existingUsername = await userRepository.findByUsername(data.username);
-    if (existingUsername) {
-      throw new ApiError(409, "Username already taken");
-    }
+      // Check if username already exists
+      const existingUsername = await userRepository.findByUsername(data.username);
+      if (existingUsername) {
+        throw new ApiError(409, "Username already taken");
+      }
 
-    // Hash password
-    const hashedPassword = await hashPassword(data.password);
+      // Hash password
+      const hashedPassword = await hashPassword(data.password);
 
-    // Create user
-    const user = await userRepository.create({
-      username: data.username,
-      email: data.email,
-      password: hashedPassword,
-    });
+      // Create user
+      const user = await userRepository.create({
+        username: data.username,
+        email: data.email,
+        password: hashedPassword,
+      });
 
-    // Generate token
-    const token = generateToken({
-      userId: user.id,
-      email: user.email,
-      roles: [],
-    });
-
-    return {
-      token,
-      user: {
-        id: user.id,
-        username: user.username,
+      // Generate token
+      const token = generateToken({
+        userId: user.id,
         email: user.email,
-      },
-    };
+        roles: [],
+      });
+
+      return {
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+        },
+      };
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      console.error("Signup error:", error);
+      throw new ApiError(500, "Failed to create account. Please try again.");
+    }
   },
 
   login: async (data: LoginDtoType) => {
-    // Find user
-    const user = await userRepository.findByEmail(data.email);
-    if (!user) {
-      throw new ApiError(401, "Invalid credentials");
-    }
+    try {
+      // Find user
+      const user = await userRepository.findByEmail(data.email);
+      if (!user) {
+        throw new ApiError(401, "Invalid credentials");
+      }
 
-    // Compare password
-    const isPasswordValid = await comparePasswords(data.password, user.password);
-    if (!isPasswordValid) {
-      throw new ApiError(401, "Invalid credentials");
-    }
+      // Compare password
+      const isPasswordValid = await comparePasswords(data.password, user.password);
+      if (!isPasswordValid) {
+        throw new ApiError(401, "Invalid credentials");
+      }
 
-    // Extract roles
-    const roles = user.roles.map((ur) => ur.role.name);
+      // Extract roles
+      const roles = user.roles.map((ur) => ur.role.name);
 
-    // Generate token
-    const token = generateToken({
-      userId: user.id,
-      email: user.email,
-      roles,
-    });
-
-    return {
-      token,
-      user: {
-        id: user.id,
+      // Generate token
+      const token = generateToken({
+        userId: user.id,
         email: user.email,
         roles,
-      },
-    };
+      });
+
+      return {
+        token,
+        user: {
+          id: user.id,
+          email: user.email,
+          roles,
+        },
+      };
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      console.error("Login error:", error);
+      throw new ApiError(500, "Failed to login. Please try again.");
+    }
   },
 };

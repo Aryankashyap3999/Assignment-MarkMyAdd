@@ -135,12 +135,12 @@ export default function RolesPage() {
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {roles.map((role) => (
-              <Card key={role.id} className="hover:bg-slate-50">
+              <Card key={role.id} className="bg-slate-900/50 border-slate-700 hover:bg-slate-900/70 transition-colors">
                 <CardContent className="pt-6">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h4 className="font-bold text-slate-900">{role.name}</h4>
-                      <p className="text-sm text-slate-600">
+                      <h4 className="font-bold text-slate-50">{role.name}</h4>
+                      <p className="text-sm text-slate-300">
                         {role.permissions.length} permissions
                       </p>
                     </div>

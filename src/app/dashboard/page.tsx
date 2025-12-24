@@ -85,7 +85,7 @@ export default function DashboardPage() {
           <div className="relative space-y-2">
             <Settings className="w-8 h-8 text-blue-400 mb-4" />
             <div className="text-4xl font-bold text-blue-400">{roles.length}</div>
-            <p className="text-slate-400 text-sm uppercase tracking-widest font-semibold">Total Roles</p>
+            <p className="text-slate-200 text-sm uppercase tracking-widest font-semibold">Total Roles</p>
           </div>
         </div>
 
@@ -95,7 +95,7 @@ export default function DashboardPage() {
           <div className="relative space-y-2">
             <Lock className="w-8 h-8 text-emerald-400 mb-4" />
             <div className="text-4xl font-bold text-emerald-400">{permissions.length}</div>
-            <p className="text-slate-400 text-sm uppercase tracking-widest font-semibold">Total Permissions</p>
+            <p className="text-slate-200 text-sm uppercase tracking-widest font-semibold">Total Permissions</p>
           </div>
         </div>
 
@@ -107,7 +107,7 @@ export default function DashboardPage() {
             <div className="text-4xl font-bold text-purple-400">
               {roles.reduce((acc, role) => acc + role.permissions.length, 0)}
             </div>
-            <p className="text-slate-400 text-sm uppercase tracking-widest font-semibold">Assignments</p>
+            <p className="text-slate-200 text-sm uppercase tracking-widest font-semibold">Assignments</p>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-2xl font-bold text-slate-50">Roles</h2>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-slate-300 text-sm mt-1">
                 Define access levels for your users
               </p>
             </div>
@@ -150,10 +150,10 @@ export default function DashboardPage() {
                   <div className="absolute inset-0 bg-linear-to-r from-blue-600/0 via-blue-600/0 to-blue-600/0 group-hover:from-blue-600/10 group-hover:via-blue-600/5 group-hover:to-blue-600/0 transition-all duration-300" />
                   <div className="relative flex items-center justify-between">
                     <div>
-                      <p className="font-semibold text-slate-50 group-hover:text-blue-200 transition-colors">
+                      <p className="font-semibold text-slate-100 group-hover:text-blue-200 transition-colors">
                         {role.name}
                       </p>
-                      <p className="text-xs text-slate-500 mt-1.5">
+                      <p className="text-xs text-slate-400 mt-1.5">
                         {role.permissions.length} {role.permissions.length === 1 ? "permission" : "permissions"}
                       </p>
                     </div>
@@ -196,7 +196,7 @@ export default function DashboardPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-2xl font-bold text-slate-50">Permissions</h2>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-slate-300 text-sm mt-1">
                 Define actions and capabilities
               </p>
             </div>
@@ -226,11 +226,11 @@ export default function DashboardPage() {
                 >
                   <div className="absolute inset-0 bg-linear-to-r from-emerald-600/0 via-emerald-600/0 to-emerald-600/0 group-hover:from-emerald-600/10 group-hover:via-emerald-600/5 group-hover:to-emerald-600/0 transition-all duration-300" />
                   <div className="relative">
-                    <p className="font-semibold text-slate-50 group-hover:text-emerald-200 transition-colors">
+                    <p className="font-semibold text-slate-100 group-hover:text-emerald-200 transition-colors">
                       {permission.name}
                     </p>
                     {permission.description && (
-                      <p className="text-xs text-slate-500 mt-1.5 line-clamp-2">
+                      <p className="text-xs text-slate-400 mt-1.5 line-clamp-2">
                         {permission.description}
                       </p>
                     )}
@@ -274,7 +274,7 @@ export default function DashboardPage() {
             <Zap className="w-6 h-6 text-blue-400" />
             <h3 className="text-2xl font-bold text-slate-50">AI-Powered Commands</h3>
           </div>
-          <p className="text-slate-300 text-sm leading-relaxed">
+          <p className="text-slate-200 text-sm leading-relaxed">
             Use natural language to manage your RBAC system. Try commands like:
           </p>
           <ul className="space-y-2 text-sm text-slate-300 ml-4">
