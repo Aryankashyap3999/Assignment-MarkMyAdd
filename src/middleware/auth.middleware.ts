@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, extractTokenFromHeader } from "@/utils/auth.utils";
-import { JWTPayload } from "@/types/auth";
+import type { JWTPayload } from "@/types/auth";
 
-export const withAuth = (handler: Function) => {
+type AuthenticatedHandler = (req: NextRequest, user: JWTPayload) => Promise<NextResponse>;
+
+export const withAuth = (handler: AuthenticatedHandler) => {
   return async (req: NextRequest) => {
     try {
       const authHeader = req.headers.get("Authorization");
@@ -23,11 +25,8 @@ export const withAuth = (handler: Function) => {
         );
       }
 
-      // Attach user to request
-      const clonedReq = req.clone();
-      (clonedReq as any).user = payload;
-
-      return handler(clonedReq, payload);
+      // Call handler with authenticated request
+      return handler(req, payload);
     } catch (error) {
       console.error("Auth middleware error:", error);
       return NextResponse.json(
@@ -36,4 +35,4 @@ export const withAuth = (handler: Function) => {
       );
     }
   };
-};
+};;
